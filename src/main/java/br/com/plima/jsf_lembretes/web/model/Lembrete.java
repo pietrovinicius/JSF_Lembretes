@@ -1,14 +1,44 @@
 package br.com.plima.jsf_lembretes.web.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
+//É a entidade da aplicação
+@Entity
 public class Lembrete {
 
-    private  long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Size(min = 3, max = 255)
+    @Column(nullable = false)
     private String titulo;
+
+    @Size(min = 3, max = 255)
+    @Column(nullable = false)
     private String descricao;
-    private Date dataCadastro;
-    private Date dataInicio;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date criacao = new Date();
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date inicio = new Date();
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Prioridade prioridade;
+
+    @Column(nullable = false,
+            columnDefinition = "BIT(1) default 0")
+    private boolean arquivado;
+
+    //construtor da Entidade vazio
+    public Lembrete() {
+    }
 
     public long getId() {
         return id;
@@ -34,30 +64,40 @@ public class Lembrete {
         this.descricao = descricao;
     }
 
-    public Date getDataCadastro() {
-        return dataCadastro;
+    public Date getCriacao() {
+        return criacao;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setCriacao(Date criacao) {
+        this.criacao = criacao;
     }
 
-    public Date getDataInicio() {
-        return dataInicio;
+    public Date getInicio() {
+        return inicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setInicio(Date inicio) {
+        this.inicio = inicio;
     }
 
-    @Override
-    public String toString() {
-        return "Lembrete{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", dataCadastro=" + dataCadastro +
-                ", dataInicio=" + dataInicio +
-                '}';
+    public Prioridade getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public boolean isArquivado() {
+        return arquivado;
+    }
+
+    public void setArquivado(boolean arquivado) {
+        this.arquivado = arquivado;
+    }
+
+    //é para exibir esse valor lá na View
+    public String getArquivadoAsString(){
+        return arquivado ? "SIM" : "NÃO";
     }
 }
