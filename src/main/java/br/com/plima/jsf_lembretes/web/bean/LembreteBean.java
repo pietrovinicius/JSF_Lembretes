@@ -20,7 +20,7 @@ public class LembreteBean {
 
     //esse método é o construtor do Bean
     @PostConstruct
-    public void init(){
+    public void init() {
         lembrete = new Lembrete();
     }
 
@@ -44,6 +44,46 @@ public class LembreteBean {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null,
                 new FacesMessage("Lembrete adicionado com sucesso!"));
+        context.getExternalContext().getFlash().setKeepMessages(true);
+
+        return "index.xhtml?faces-redirect=true";
+    }
+
+    public void lembretePorId() {
+        lembrete = mapper.buscar(lembrete.getId());
+
+        if (lembrete == null || lembrete.getId() == 0) {
+            lembrete = new Lembrete();
+
+            FacesMessage message = new FacesMessage("Lembrete não encontrado.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+
+    //editar é ação de deçegar pro mapper fazer a substituição do lembrete
+    public String editar() {
+        mapper.editar(lembrete);
+
+        //reset do lembrete pra tirar do scopo
+        lembrete = new Lembrete();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Lembrete editado com sucesso!"));
+        context.getExternalContext().getFlash().setKeepMessages(true);
+
+        return "index.xhtml?faces-redirect=true";
+    }
+
+
+    //metodo para remover Lembrete
+    public String remover() {
+        mapper.remover(lembrete);
+
+        lembrete = new Lembrete();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Lembrete removido com sucesso!"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
         return "index.xhtml?faces-redirect=true";
