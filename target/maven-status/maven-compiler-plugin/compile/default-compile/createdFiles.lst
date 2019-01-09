@@ -1,0 +1,3 @@
+br\com\plima\jsf_lembretes\web\model\Lembrete.class
+br\com\plima\jsf_lembretes\web\bean\LembreteBean.class
+br\com\plima\jsf_lembretes\web\mapper\LembreteMapper.class
