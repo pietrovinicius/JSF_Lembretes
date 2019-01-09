@@ -18,6 +18,7 @@ public class LembreteBean {
     private Lembrete lembrete;
     private LembreteMapper mapper = new LembreteMapper();
 
+    //esse método é o construtor do Bean
     @PostConstruct
     public void init(){
         lembrete = new Lembrete();
@@ -33,9 +34,11 @@ public class LembreteBean {
         return mapper.getLembretes();
     }
 
+    //método para adicionar o lembrete na list
     public String adicionar() {
         mapper.adicionar(lembrete);
 
+        //precisei reiniciar o lembrete
         lembrete = new Lembrete();
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -43,7 +46,7 @@ public class LembreteBean {
                 new FacesMessage("Lembrete adicionado com sucesso!"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
-        return "index.xhtml";
+        return "index.xhtml?faces-redirect=true";
     }
 
 }
