@@ -46,7 +46,7 @@ public class LembreteBean {
                 new FacesMessage("Lembrete adicionado com sucesso!"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
-        return "index.xhtml?faces-redirect=true";
+        return "home";
     }
 
     public void lembretePorId() {
@@ -72,7 +72,7 @@ public class LembreteBean {
         context.addMessage(null, new FacesMessage("Lembrete editado com sucesso!"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
-        return "index.xhtml?faces-redirect=true";
+        return "home";
     }
 
 
@@ -86,7 +86,7 @@ public class LembreteBean {
         context.addMessage(null, new FacesMessage("Lembrete removido com sucesso!"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
-        return "index.xhtml?faces-redirect=true";
+        return "home";
     }
 
 }
